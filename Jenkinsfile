@@ -10,6 +10,8 @@ pipeline {
 
     environment {
 
+        DOCKERHUB_CREDS = credentials('ae6070f8-ead4-4686-84f3-9d3a5f154f49')
+
         // Slack configuration
         SLACK_COLOR_DANGER  = '#E01563'
         SLACK_COLOR_WARNING = '#FFC300'
@@ -56,7 +58,7 @@ pipeline {
             steps {
                 script{
                     // Need to login first into docker hub, probably pass credentials in jenkins configuration
-                    sh 'cat /password.txt | docker login --username ankitm1234 --password-stdin'
+                    sh 'cat /password.txt | docker login --username ${env.DOCKERHUB_CREDS_USR} --password ${env.DOCKERHUB_CREDS_PSW}'
                     sh 'make dockerpush'
                 } // script
             } // steps
