@@ -10,6 +10,8 @@
 
 # production
 /build
+/docker/build
+/docker/jenTest
 
 # misc
 .DS_Store

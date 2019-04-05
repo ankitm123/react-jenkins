@@ -18,10 +18,8 @@ dockerize: build-go
 	if [ -d docker/build ]; \
 	then \
 		rm -rf docker/build; \
-	else \
-		mkdir -p docker/build/; \
 	fi
-	cp -R build docker/build/
+	cp -R build docker/
 	docker build -t $(TAG_LATEST) docker/
 dockerpush: dockerize
 	docker push $(TAG_LATEST)
