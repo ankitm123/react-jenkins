@@ -20,6 +20,8 @@ RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - \
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list 
 RUN apt-get update -qq && apt-get install -y yarn
-
+RUN wget -q https://dl.google.com/go/go1.12.1.linux-amd64.tar.gz && \ 
+   tar -C /usr/local -xf go1.12.1.linux-amd64.tar.gz
+ENV PATH="${PATH}:/usr/local/go/bin"
 # Drop back as normal user
 USER jenkins
