@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        docker { dockerfile true } // Could have used dockerfile instead of an image, but this is just a POC
-    } // agent
+    agent { dockerfile true }
     parameters {
 
         string(name: 'SLACK_CHANNEL',
