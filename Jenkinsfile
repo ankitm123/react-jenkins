@@ -23,11 +23,12 @@ pipeline {
         stage('Check') {
             steps {
                 script{
-                    node --version
+                    sh 'node --version'
                     sh 'yarn --version'
                 } // script
             } // steps
         } // stage Check
+        
         stage('Install') {
             steps {
                 script{
@@ -35,6 +36,7 @@ pipeline {
                 } // script
             }// steps
         }// stage Install
+        
         stage('Test') {
             steps {
                 script{
@@ -42,6 +44,7 @@ pipeline {
                 } // script
             }// steps
         }// stage Test
+
         stage('Build') {
             steps {
                 script{
@@ -56,26 +59,26 @@ pipeline {
 
         aborted {
 
-        echo "Sending message to Slack"
-        slackSend (color: "${env.SLACK_COLOR_WARNING}",
-                    channel: "${params.SLACK_CHANNEL}",
-                    message: "*ABORTED:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${env.USER_ID}\n More info at: ${env.BUILD_URL}")
+            echo "Sending message to Slack"
+            slackSend (color: "${env.SLACK_COLOR_WARNING}",
+                        channel: "${params.SLACK_CHANNEL}",
+                        message: "*ABORTED:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${env.USER_ID}\n More info at: ${env.BUILD_URL}")
         } // aborted
 
         failure {
 
-        echo "Sending message to Slack"
-        slackSend (color: "${env.SLACK_COLOR_DANGER}",
-                    channel: "${params.SLACK_CHANNEL}",
-                    message: "*FAILED:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${env.USER_ID}\n More info at: ${env.BUILD_URL}")
-        } // failure
+            echo "Sending message to Slack"
+            slackSend (color: "${env.SLACK_COLOR_DANGER}",
+                        channel: "${params.SLACK_CHANNEL}",
+                        message: "*FAILED:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${env.USER_ID}\n More info at: ${env.BUILD_URL}")
+            } // failure
 
         success {
-        echo "Sending message to Slack"
-        slackSend (color: "${env.SLACK_COLOR_GOOD}",
-                    channel: "${params.SLACK_CHANNEL}",
-                    message: "*SUCCESS:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${env.USER_ID}\n More info at: ${env.BUILD_URL}")
-        } // success
+            echo "Sending message to Slack"
+            slackSend (color: "${env.SLACK_COLOR_GOOD}",
+                        channel: "${params.SLACK_CHANNEL}",
+                        message: "*SUCCESS:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${env.USER_ID}\n More info at: ${env.BUILD_URL}")
+            } // success
 
   } // post
-}
+} // pipeline
