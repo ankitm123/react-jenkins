@@ -22,6 +22,7 @@ pipeline {
                 script{
                     sh 'node --version'
                     sh 'yarn --version'
+                    sh 'go version'
                 } // script
             } // steps
         } // stage Check
