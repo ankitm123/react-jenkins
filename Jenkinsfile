@@ -58,7 +58,7 @@ pipeline {
             steps {
                 script{
                     // Need to login first into docker hub, probably pass credentials in jenkins configuration
-                    sh 'cat /password.txt | docker login --username ${env.DOCKERHUB_CREDS_USR} --password ${env.DOCKERHUB_CREDS_PSW}'
+                    sh 'docker login --username ${env.DOCKERHUB_CREDS_USR} --password ${env.DOCKERHUB_CREDS_PSW}'
                     sh 'make dockerpush'
                 } // script
             } // steps
