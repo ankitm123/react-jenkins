@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'node:11.13.0-alpine' } // Could have used dockerfile instead of an image, but this is just a POC
+        docker { dockerfile true } // Could have used dockerfile instead of an image, but this is just a POC
     } // agent
     parameters {
 

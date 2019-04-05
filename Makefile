@@ -11,8 +11,17 @@ default: build-go
 
 build-go:
 	$(ENV_FLAGS) $(BUILD_CMD) $(BUILD_FLAGS)
+	
 
 dockerize: build-go
-	docker build -t $(TAG_LATEST) .
+	cp jenTest docker/ && chmod +x docker/jenTest
+	if [ -d docker/build ]; \
+	then \
+		rm -rf docker/build; \
+	else \
+		mkdir -p docker/build/; \
+	fi
+	cp -R build docker/build/
+	docker build -t $(TAG_LATEST) docker/
 dockerpush: dockerize
 	docker push $(TAG_LATEST)
