@@ -14,7 +14,6 @@ pipeline {
 
         // Slack configuration
         SLACK_COLOR_DANGER  = '#E01563'
-        SLACK_COLOR_INFO    = '#6ECADC'
         SLACK_COLOR_WARNING = '#FFC300'
         SLACK_COLOR_GOOD    = '#3EB991'
 
@@ -49,11 +48,20 @@ pipeline {
             steps {
                 script{
                     sh 'yarn build'
-                // sh 'docker build -t ankitm123/cra-jenkins:latest .'
-                // sh 'docker push ankitm123/cra-jenkins:latest'
+                    
                 } // script
             } // steps
         } // stage build
+
+        stage('Docker') {
+            steps {
+                script{
+                    // Need to login first into docker hub, probably pass credentials in jenkins configuration
+                    sh 'cat /password.txt | docker login --username ankitm1234 --password-stdin'
+                    sh 'make dockerpush'
+                } // script
+            } // steps
+        } // stage docker
     } //stages
     post {
 
