@@ -5,7 +5,10 @@ pipeline {
     stages {
         stage('Test') {
             steps {
+                sh 'whoami'
                 sh 'node --version'
+                sh 'yarn --version'
+                sh 'yarn install'
             }
         }
     }
