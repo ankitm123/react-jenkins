@@ -9,6 +9,7 @@ pipeline {
                 sh 'node --version'
                 sh 'yarn --version'
                 sh 'yarn install'
+                sh 'yarn test'
             }
         }
     }
